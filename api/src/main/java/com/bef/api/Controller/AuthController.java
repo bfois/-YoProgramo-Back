@@ -8,6 +8,8 @@ import com.bef.api.Entity.Role;
 import com.bef.api.Entity.UserEntity;
 import com.bef.api.Repository.RolRepository;
 import com.bef.api.Repository.UserRepository;
+import com.bef.api.Security.JwtGenerator;
+import com.bef.api.dto.AuthResponseDTO;
 import com.bef.api.dto.LoginDto;
 import com.bef.api.dto.RegisterDto;
 import java.util.Collections;
@@ -34,20 +36,23 @@ public class AuthController {
     private UserRepository userRepository;
     private RolRepository rolRepository;
     private PasswordEncoder passwordEncoder;
+    private JwtGenerator jwtGenerator;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, JwtGenerator jwtGenerator) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.rolRepository = rolRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
     }
 
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
     Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("Usuario Logueado",HttpStatus.OK);
+        String token = jwtGenerator.generateToken(authentication);
+        return new ResponseEntity<>(new AuthResponseDTO(token),HttpStatus.OK);
     }
     
     @PostMapping("register")

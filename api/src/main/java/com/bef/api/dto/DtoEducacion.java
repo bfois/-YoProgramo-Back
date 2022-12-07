@@ -14,12 +14,17 @@ public class DtoEducacion {
     private String nombreEdu;
     @NotBlank
     private String descripcionEdu;
-
+    @NotBlank
+    private int initDate;
+    @NotBlank
+    private int finishDate;
     public DtoEducacion() {
     }
 
-    public DtoEducacion(String nombreEdu, String descripcionEdu) {
+    public DtoEducacion(String nombreEdu, String descripcionEdu, int initDate, int finishDate) {
         this.nombreEdu = nombreEdu;
         this.descripcionEdu = descripcionEdu;
+        this.initDate = initDate;
+        this.finishDate = finishDate;
     }
 }

@@ -19,13 +19,17 @@ public class Educacion {
     private int id;
     private String nombreEdu;
     private String descripcionEdu;
+    private int initDate;
+    private int finishDate;
     
     public Educacion() {
     }
 
-    public Educacion(String nombreEdu, String descripcionEdu) {
+    public Educacion(String nombreEdu, String descripcionEdu, int initDate, int finishDate) {
         this.nombreEdu = nombreEdu;
         this.descripcionEdu = descripcionEdu;
+        this.initDate = initDate;
+        this.finishDate = finishDate;
     }
     
 }

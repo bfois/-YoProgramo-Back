@@ -4,13 +4,13 @@
  */
 package com.bef.api.Repository;
 
-import com.bef.api.Entity.Persona;
+import com.bef.api.Entity.Proyectos;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IPersonaRepository extends JpaRepository<Persona, Integer>{
-    public Optional<Persona> findByNombre(String nombre);
+public interface RProyectos extends JpaRepository<Proyectos, Integer>{
+    public Optional<Proyectos> findByNombre(String nombre);
     public boolean existsByNombre(String nombre);
 }

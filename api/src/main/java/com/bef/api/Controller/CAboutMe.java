@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bef.api.Controller;
-import com.bef.api.Entity.Persona;
-import com.bef.api.Service.ImpPersonaService;
-import com.bef.api.dto.DtoPersona;
+
+import com.bef.api.Entity.AboutMe;
+import com.bef.api.Service.SAboutMe;
+import com.bef.api.dto.DtoAboutMe;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,45 +21,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/personas")
+@RequestMapping("/aboutMe")
 @CrossOrigin(origins = "http://localhost:4200")
-public class PersonaController {
+public class CAboutMe {
     @Autowired
-    ImpPersonaService impPersonaService;
+   SAboutMe sAboutMe;
     
     @GetMapping("/lista")
-    public ResponseEntity<List<Persona>> list(){
-        List<Persona> list =  impPersonaService.list();
+    public ResponseEntity<List<AboutMe>> list(){
+        List<AboutMe> list =  sAboutMe.list();
         return new ResponseEntity(list,HttpStatus.OK);
     }
     
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoPersona dtoPer){
-        if(!impPersonaService.existsById(id)){
+    public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoAboutMe dtoAbout){
+        if(!sAboutMe.existsById(id)){
             return new ResponseEntity(new Mensaje("El id no existe"),HttpStatus.BAD_REQUEST);
         }
-        if(impPersonaService.existsByNombre(dtoPer.getNombre()) && impPersonaService.getByNombre(dtoPer.getNombre()).get().getId() != id){
+        if(sAboutMe.existsByNombre(dtoAbout.getNombre()) && sAboutMe.getByNombre(dtoAbout.getNombre()).get().getId() != id){
             return new ResponseEntity(new Mensaje("esa persona ya existe"),HttpStatus.BAD_REQUEST);
         }
-        if(StringUtils.isBlank(dtoPer.getNombre())){
+        if(StringUtils.isBlank(dtoAbout.getNombre())){
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
         }
-        Persona persona = impPersonaService.getOne(id).get();
-        persona.setNombre(dtoPer.getNombre());
-        persona.setApellido(dtoPer.getApellido());
-        persona.setDescripcion(dtoPer.getDescripcion());
-        persona.setImg(dtoPer.getImg());
+        AboutMe about = sAboutMe.getOne(id).get();
+        about.setNombre(dtoAbout.getNombre());
+        about.setDescripcion(dtoAbout.getDescripcion());
+      
         
-               impPersonaService.save(persona);
+               sAboutMe.save(about);
                return new ResponseEntity(new Mensaje("persona actualizada"),HttpStatus.OK);
     }
     
     @GetMapping("/detail/{id}")
-    public ResponseEntity<Persona> getById(@PathVariable("id") int id){
-        if(!impPersonaService.existsById(id))
+    public ResponseEntity<AboutMe> getById(@PathVariable("id") int id){
+        if(!sAboutMe.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-        Persona persona = impPersonaService.getOne(id).get();
-        return new ResponseEntity(persona, HttpStatus.OK);
+        AboutMe about = sAboutMe.getOne(id).get();
+        return new ResponseEntity(about, HttpStatus.OK);
     }
-    
 }

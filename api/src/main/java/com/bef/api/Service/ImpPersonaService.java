@@ -3,38 +3,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.bef.api.Service;
-
 import com.bef.api.Entity.Persona;
-import com.bef.api.Interface.IPersonaService;
 import com.bef.api.Repository.IPersonaRepository;
 import java.util.List;
+import java.util.Optional;
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImpPersonaService implements IPersonaService{
-    @Autowired IPersonaRepository iPersonaRepository;
+@Transactional
+public class ImpPersonaService{
+    @Autowired 
+    IPersonaRepository iPersonaRepository;
     
-    @Override
-    public List<Persona> getPersona() {
-        List<Persona> persona = iPersonaRepository.findAll();
-        return persona;
+  public List<Persona> list(){
+    return iPersonaRepository.findAll();
     }
-
-    @Override
-    public void savePersona(Persona persona) {
+    
+    public Optional<Persona> getOne(int id){
+    return iPersonaRepository.findById(id);
+    }
+    
+    public Optional<Persona> getByNombre(String nombre){
+    return iPersonaRepository.findByNombre(nombre);
+    }
+    
+    public void save(Persona persona){
         iPersonaRepository.save(persona);
     }
-
-    @Override
-    public void deletePersona(Long id) {
+    
+    public void delete(int id){
         iPersonaRepository.deleteById(id);
     }
-
-    @Override
-    public Persona findPersona(Long id) {
-        Persona persona = iPersonaRepository.findById(id).orElse(null);
-        return persona;
+    
+    public boolean existsById(int id){
+    return iPersonaRepository.existsById(id);
+    }
+    
+    public boolean existsByNombre(String nombre){
+    return iPersonaRepository.existsByNombre(nombre);
     }
     
 }

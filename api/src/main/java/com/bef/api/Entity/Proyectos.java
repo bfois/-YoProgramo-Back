@@ -24,13 +24,15 @@ public class Proyectos {
     private String descripcion;
       @NotNull
     private String img;
+      private String url;
 
     public Proyectos() {
     }
 
-    public Proyectos(String nombre, String descripcion, String img) {
+    public Proyectos(String nombre, String descripcion, String img,String url) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.img = img;
+        this.url=url;
     }
 }

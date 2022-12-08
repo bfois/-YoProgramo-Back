@@ -16,14 +16,16 @@ public class DtoProyectos {
     private String descripcion;
     @NotBlank
     private String img;
+    private String url;
 
     public DtoProyectos() {
     }
 
-    public DtoProyectos(String nombre, String descripcion, String img) {
+    public DtoProyectos(String nombre, String descripcion, String img,String url) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.img = img;
+        this.url = url;
     }
    
     

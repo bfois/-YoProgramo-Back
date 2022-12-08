@@ -44,7 +44,7 @@ public class CProyectos {
         if(sProyectos.existsByNombre(dtoProyectos.getNombre())){
         return new ResponseEntity(new Mensaje("Ese proyecto existe"),HttpStatus.BAD_REQUEST);
         }
-        Proyectos proyec = new Proyectos(dtoProyectos.getNombre(),dtoProyectos.getDescripcion(),dtoProyectos.getImg());
+        Proyectos proyec = new Proyectos(dtoProyectos.getNombre(),dtoProyectos.getDescripcion(),dtoProyectos.getImg(),dtoProyectos.getUrl());
         sProyectos.save(proyec);
         return new ResponseEntity(new Mensaje("proyecto agregado"),HttpStatus.OK);
     }
@@ -63,6 +63,7 @@ public class CProyectos {
         proyec.setNombre(dtoProyectos.getNombre());
         proyec.setDescripcion(dtoProyectos.getDescripcion());
         proyec.setImg(dtoProyectos.getImg());
+        proyec.setUrl(dtoProyectos.getUrl());
                sProyectos.save(proyec);
                return new ResponseEntity(new Mensaje("proyecto actualizado"),HttpStatus.OK);
     }

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,5 +60,10 @@ public class CAboutMe {
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
         AboutMe about = sAboutMe.getOne(id).get();
         return new ResponseEntity(about, HttpStatus.OK);
+    }
+    @PostMapping("/create")
+    public String create(@RequestBody AboutMe about){
+    sAboutMe.save(about);
+    return "Se guardo la informacion";
     }
 }

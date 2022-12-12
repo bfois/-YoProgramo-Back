@@ -61,7 +61,7 @@ public class PersonaController {
         Persona persona = impPersonaService.getOne(id).get();
         return new ResponseEntity(persona, HttpStatus.OK);
     }
-    @PostMapping("/personas/crear")
+    @PostMapping("/crear")
     public String createPersona(@RequestBody Persona persona){
     impPersonaService.save(persona);
     return "la persona fue creada con exito";

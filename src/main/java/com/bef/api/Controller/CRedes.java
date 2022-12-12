@@ -34,17 +34,10 @@ public class CRedes {
         return new ResponseEntity(list,HttpStatus.OK);
     }
     
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody DtoRedes dtoRedes){
-        if(StringUtils.isBlank(dtoRedes.getNombre())){
-         return new ResponseEntity(new Mensaje("El nombre es obligatorio"),HttpStatus.BAD_REQUEST);
-        }   
-        if(sRedes.existsByNombre(dtoRedes.getNombre())){
-        return new ResponseEntity(new Mensaje("Esa red social ya existe"),HttpStatus.BAD_REQUEST);
-        }
-        Redes redes = new Redes(dtoRedes.getNombre(),dtoRedes.getIcono(),dtoRedes.getUrl());
-        sRedes.save(redes);
-        return new ResponseEntity(new Mensaje("red social agregada"),HttpStatus.OK);
+    @PostMapping("/crear")
+    public String createPersona(@RequestBody Redes red){
+    sRedes.save(red);
+    return "Agregar red social";
     }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody DtoRedes dtoRedes){

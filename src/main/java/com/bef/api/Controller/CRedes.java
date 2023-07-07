@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/redes")
-@CrossOrigin(origins = {"https://foisbrian.online/","http://localhost:4200"})
+@CrossOrigin(origins = {"https://foisbrian.online/"})
 public class CRedes {
     @Autowired
     SRedes sRedes;

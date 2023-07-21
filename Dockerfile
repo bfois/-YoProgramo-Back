@@ -9,8 +9,7 @@ FROM openjdk:8-jre-slim
 WORKDIR /app
 EXPOSE 8080
 
-
-COPY --from=build /src/target/api.jar /app/app.jar
+COPY --from=build /out/artifacts/api_jar/api.jar /app/app.jar
 
 # Set the entrypoint to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

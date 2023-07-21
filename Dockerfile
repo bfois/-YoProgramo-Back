@@ -9,8 +9,7 @@ FROM openjdk:8-jre-slim
 WORKDIR /app
 EXPOSE 8080
 
-# Create the /app directory and copy the JAR from the Maven build stage
-RUN mkdir /app
+
 COPY --from=build /src/target/api.jar /app/app.jar
 
 # Set the entrypoint to run the application

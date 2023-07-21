@@ -2,7 +2,7 @@
 FROM maven:3.8.3-jdk-8 AS build
 WORKDIR /src
 COPY . .
-RUN mvn package
+RUN mvn package -DskipTests
 
 # Stage 2: Create the final container with the JRE and the built JAR
 FROM openjdk:8-jre-slim

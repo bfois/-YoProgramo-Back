@@ -1,6 +1,6 @@
 # Stage 1: Build the application using Maven
 FROM maven:3.8.3-jdk-8 AS build
-WORKDIR /src
+WORKDIR /app
 COPY . .
 RUN mvn package -DskipTests
 
@@ -9,7 +9,8 @@ FROM openjdk:8-jre-slim
 WORKDIR /app
 EXPOSE 8080
 
-COPY --from=build /out/artifacts/api_jar/api.jar /app/app.jar
+# Copiar el JAR desde la etapa de compilación (build stage)
+COPY --from=build /app/out/artifacts/api_jar/api.jar /app/app.jar
 
-# Set the entrypoint to run the application
+# Establecer el punto de entrada para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
